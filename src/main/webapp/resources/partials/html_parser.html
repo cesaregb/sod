@@ -1,0 +1,47 @@
+<!--
+	Parser partial!
+	This is the main partial.
+	ng-controller="htmlParserController"
+ -->
+<div ng-cloak>
+	<div class="row">
+		<div class="col-md-3">
+			<p class="lead">Tags</p>
+			<div class="list-group">
+				<a href="#" class="list-group-item" ng-click="selectTag('none')" >Deselect</a>
+				<a href="#" class="list-group-item" ng-click="selectTag(item.key)" ng-repeat="item in tagsArray">{{ item.value }}</a>
+			</div>
+		</div>
+
+		<div class="col-md-9">
+			<div class="row">
+				<div class="col-md-12">
+						<h1 class="cover-heading">Enter a URL:</h1>
+						<p class="lead">We will try to get the html content of the site you are looking for.</p>
+						<p class="lead">
+							<div class="input-group">
+								<span class="input-group-addon">
+								  Use Jsoup <input type="checkbox" aria-label="Use Jsoup" ng-model="jsoupService">
+								</span>
+								<input type="text" class="form-control" placeholder="http://www.slack.com" id="url-text" name='url-text' ng-model="url">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" ng-click="getHTML()" id="getButton" ng-disabled="loading">Get!</button>
+								</span>
+							</div>
+						</p>
+				</div>
+			</div>
+			<div class="alert alert-danger" ng-show="parseError">
+				{{error_message}}
+			</div>
+			<div class="alert alert-info" ng-show="loading">
+				Loading....
+			</div>
+			<div class="row">
+				<div class="col-sm-12" style="background-color:#FFF; margin:10px; padding:10px;">
+					<pre><code dynamic="htmlContent" id="htmlContent"></code></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

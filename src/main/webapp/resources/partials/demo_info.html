@@ -1,0 +1,61 @@
+<div>
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <h4 class="page-head-line">Demo Info</h4>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-md-8 info-text">
+          <div>
+             <h3>Application Engineer Coding Exercise</h3>
+             <div>
+                <ul>
+                   <li>Create a simple web app, hosted at a URL we can visit</li>
+                   <li>Users can enter a URL of a page to fetch</li>
+                   <li>The web app fetches the HTML of the page and displays the source to the user</li>
+                   <li>A summary of the document is displayed, listing which tags are present in the HTML and how many of each tag</li>
+                   <li>Clicking on the name of each tag in the summary will highlight the tags in the source code view</li>
+               </ul>
+             </div>
+          </div>
+         <div style="padding-top:20px;">
+            <h3>Proposed solution</h3>
+         </div>
+         <div style="padding-top:20px;">
+            <strong>Client Tier:</strong><br>
+            Angular JS + Boostrap
+         </div>
+         <div>
+            <strong>Business Tier:</strong><br>
+            Java + Jersey
+         </div>
+         <div>
+            <strong>Data Tier:</strong><br>
+            No information beins saved, Usage of Redis can be incorporated, this way avoid making the http request and handling the cache-like Non-SQL database. <br>
+         </div>
+         <div style="padding-top:20px;">
+            <strong>UI Info:</strong><br>
+            Default service (No checkbox selected). This default service have the logic for:<br>
+            * Making the http request <strong>com.example.service.URLReader</strong><br>
+            * Parsing the html content, this contains some logic to detect the thml tags, generate tha parse version of the text <strong>com.example.util.ParserHelper</strong><br>
+            Please Note that this parser is not a full DOM validator, so soveral script in-code tags could be detected as "normal" tags.
+            <br><br>
+            Jsoup Checkbox, if selected, Applicatoin will consume the jsoup web service, this uses the Java Library JSOUP  used to parse and handle xml/html.<br><br>
+         </div>
+
+         <div>
+            <strong>How to run this project on a local env.</strong> <br><br>
+            Running this project: <br>
+            Compiling<br>
+            ---------<br>
+            mvn clean install<br><br>
+            Running in Jetty<br>
+            ----------------<br>
+            mvn jetty:run<br><br>
+            Then open <http://localhost:8080/> <br>
+         </div>
+       </div>
+     </div>
+   </div>
+</div>
