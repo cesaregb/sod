@@ -1,9 +1,0 @@
-<bean id="logAspect" class="com.mkyong.aspect.LoggingAspect" />
-<aop:config>
-  <aop:aspect id="aspectLoggging" ref="logAspect" >
-     <!-- @Before -->
-     <aop:pointcut id="pointCutBefore"
-			expression="execution(* com.mkyong.customer.bo.CustomerBo.addCustomer(..))" />
-     <aop:before method="logBefore" pointcut-ref="pointCutBefore" />
-  </aop:aspect>
-</aop:config>
