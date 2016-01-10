@@ -1,4 +1,4 @@
-package com.il.sod.dtos;
+package com.il.sod.vo;
 
 public class MyDTO {
 	private String val1 = "";
