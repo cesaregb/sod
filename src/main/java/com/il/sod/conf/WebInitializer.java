@@ -3,16 +3,23 @@ package com.il.sod.conf;
 import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.il.sod.conf.spring.CORSFilter;
+
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+	
+	private final Logger log = LoggerFactory.getLogger(WebInitializer.class);
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
@@ -73,6 +80,28 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		}
 
 		customizeRegistration(registration);
+	}
+	
+	/**
+     * Set a default profile if it has not been set.
+     * Please use -Dspring.profiles.active=dev
+     */
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		super.onStartup(servletContext);
+		servletContext.setInitParameter("spring.profiles.active", getProfile());
+		//Set multiple active profile
+		//servletContext.setInitParameter("spring.profiles.active", "dev, testdb");
+	}
+	
+	public String getProfile(){
+		String profile = System.getProperty("spring.profiles.active");
+        if (profile != null) {
+            log.info("Running with Spring profile(s) : {}", profile);
+            return profile;
+        }
+        log.warn("No Spring profile configured, running with default configuration");
+        return Constants.SPRING_PROFILE_DEVELOPMENT;
 	}
 
 }

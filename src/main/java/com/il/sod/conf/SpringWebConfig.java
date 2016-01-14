@@ -23,12 +23,17 @@ import com.il.sod.spring.viewresolver.JsonViewResolver;
 @Configuration
 @EnableWebMvc // enable web mvc annotations. discover Controllers and RestControllers
 @EnableAspectJAutoProxy // we set the aspectJ annotation here to be setted in the same context as the controllers. 
-@ComponentScan({"com.il.sod.controllers", 
-	"com.il.sod.rest.api", 
-	"com.il.sod.exceptions", 
-	"com.il.sod.aop"})
-public class SpringWebConfig extends WebMvcConfigurerAdapter {
+@ComponentScan({
+	"com.il.sod.conf.spring",  // spring configuration for mvc
+	"com.il.sod.controllers",  // controllers for UI 
+	"com.il.sod.rest.api", // RestControllers
+	"com.il.sod.services", // services 
+	"com.il.sod.dao.impl", // DAO Services
+	"com.il.sod.exceptions", // exception configuration
+	"com.il.sod.aop" // aop 
+	})
 
+public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// where we will have our "static" resources .jpg, .css, etc. 
@@ -72,4 +77,5 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 //		registry.addInterceptor(new LocalInterceptor());
 //		registry.addInterceptor(new SecurityInterceptor()).addPathPatterns("/secure/*");
 //	}
+    
 }

@@ -14,21 +14,28 @@
         <slf4j.version>1.7.13</slf4j.version>
 		<logback.version>1.0.1</logback.version>
 		<jackson.version>2.5.0</jackson.version>
+		<spring.data>1.9.2.RELEASE</spring.data> 
 		<spring.version>4.2.4.RELEASE</spring.version> 
 		<spring.security.version>4.0.3.RELEASE</spring.security.version> 
 		<org.aspectj.verision>1.8.7</org.aspectj.verision> 
 		<commons-io.version>2.4</commons-io.version>
         <commons-lang.version>2.6</commons-lang.version>
+        <hibernate.version>4.3.5.Final</hibernate.version>
+        <testng.version>6.9.4</testng.version>
+        <mockito.version>1.10.19</mockito.version>
+        <h2.version>1.4.187</h2.version>
+        <dbunit.version>2.2</dbunit.version>
 	</properties>
     
     <repositories>
-        <repository>
-            <id>java.net2</id>
-            <name>Repository hosting the jee6 artifacts</name>
-            <url>http://download.java.net/maven/2</url>
-        </repository>
+    	<!-- For the jee replacement for testing the hibernate -->
+		<repository>
+			<id>repository.jboss.org-public</id>
+			<name>JBoss repository</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>
     </repositories>
-
+    
 	<dependencies>
 		<!-- jsoup HTML parser library @ http://jsoup.org/ -->
 		<dependency>
@@ -142,6 +149,12 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring.security.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring.data}</version>
+		</dependency>
 		<!-- View -->
 		<!-- <dependency>
 			<groupId>org.springframework.data</groupId>
@@ -166,31 +179,90 @@
 			<artifactId>logback-core</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
-		<!-- Test -->
+		<!-- Testing dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit-dep</artifactId>
 			<version>4.11</version>
 			<scope>test</scope>
-		</dependency>
+	    </dependency>
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>1.9.5</version>
-			<scope>test</scope>
+		    <groupId>org.assertj</groupId>
+		    <artifactId>assertj-core</artifactId>
+		    <version>3.2.0</version>
+		    <scope>test</scope>
 		</dependency>
+		
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>${dbunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+		
+		<!-- Properties yalm -->
+		<!-- <dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>1.16</version>
+		</dependency> -->
+		
+		<!-- ******* JPA/Hibernate ******** -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		
+		<dependency>
+		   <groupId>mysql</groupId>
+		   <artifactId>mysql-connector-java</artifactId>
+		   <version>5.1.30</version>
+		   <scope>runtime</scope>
+		</dependency>
+		
 	</dependencies>
 	
 	<build>
 		<pluginManagement>
 			<plugins>
-		      <plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-war-plugin</artifactId>
-		        <configuration>
-		          <failOnMissingWebXml>false</failOnMissingWebXml>
-		        </configuration>
-		      </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+					</configuration>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -218,7 +290,7 @@
 						<appName>simple-html-parser</appName>
 					</configuration>
 				</plugin>
-
+		
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
@@ -233,7 +305,7 @@
 						</execution>
 					</executions>
 				</plugin>
-
+		
 			</plugins>
 		</pluginManagement>
 		<finalName>sod</finalName>
@@ -255,8 +327,6 @@
 					</resource>
 				</resources>
 			</build>
-			<!-- #Please note that the value selfpub.registration.api.port should 
-				be the same as # the defined in the pom.xml for the profile property "selfpub.registration.api.port" -->
 			<properties>
 				<selfpub.registration.api.port>8080</selfpub.registration.api.port>
 			</properties>
@@ -279,8 +349,6 @@
 					</resource>
 				</resources>
 			</build>
-			<!-- #Please note that the value selfpub.registration.api.port should 
-				be the same as # the defined in the pom.xml for the profile property "selfpub.registration.api.port" -->
 			<properties>
 				<selfpub.registration.api.port>8080</selfpub.registration.api.port>
 			</properties>
@@ -303,8 +371,6 @@
 					</resource>
 				</resources>
 			</build>
-			<!-- #Please note that the value selfpub.registration.api.port should 
-				be the same as # the defined in the pom.xml for the profile property "selfpub.registration.api.port" -->
 			<properties>
 				<selfpub.registration.api.port>8080</selfpub.registration.api.port>
 			</properties>

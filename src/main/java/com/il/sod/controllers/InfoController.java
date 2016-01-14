@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/info")
 public class InfoController {
-
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody

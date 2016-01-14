@@ -1,4 +1,4 @@
-package com.il.sod.utils.test;
+package com.il.sod.test.utils;
 
 import org.junit.Assert;
 import org.junit.Ignore;

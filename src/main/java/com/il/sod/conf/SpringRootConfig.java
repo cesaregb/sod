@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * note that if we have a package within conf ie com.il.sod.cof.security is going to be added automaticately 
  * */
 @Configuration
-@ComponentScan({ "com.il.sod.services", "com.il.sod.conf" })
+@ComponentScan({ "com.il.sod.conf" })
 public class SpringRootConfig {
+	
 }
