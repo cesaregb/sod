@@ -8,6 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
@@ -36,8 +40,8 @@ import com.il.sod.spring.viewresolver.JsonViewResolver;
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		// where we will have our "static" resources .jpg, .css, etc. 
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		// static content, html, css, js, etc. 
+		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
 	}
 	
 	// configuration of view resolvers 
@@ -70,6 +74,21 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
         viewResolver.setPrefix("/views/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
+    }
+    
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        // http
+        HttpMessageConverter converter = new StringHttpMessageConverter();
+        converters.add(converter);
+
+        // string
+        converter = new FormHttpMessageConverter();
+        converters.add(converter);
+
+        // json
+        converter = new MappingJackson2HttpMessageConverter();
+        converters.add(converter);
     }
     
 //	@Override

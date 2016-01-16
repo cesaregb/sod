@@ -67,4 +67,13 @@ public class Health extends AbstractServices{
 		return new ResponseEntity<MyDTO>(new MyDTO("created ", 2), 
 				HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/read", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<MyDTO> read() {
+		
+		Shop shop = shopServiceDAO.findById(6);
+		
+		return new ResponseEntity<MyDTO>(new MyDTO("readed " + shop.getName(), 2), 
+				HttpStatus.OK);
+	}
 }

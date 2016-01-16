@@ -1,4 +1,4 @@
-package com.il.sod.conf.spring;
+package com.il.sod.conf;
 
 import java.io.IOException;
 

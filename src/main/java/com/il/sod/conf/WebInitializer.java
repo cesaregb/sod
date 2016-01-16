@@ -15,8 +15,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import com.il.sod.conf.spring.CORSFilter;
-
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	
 	private final Logger log = LoggerFactory.getLogger(WebInitializer.class);
