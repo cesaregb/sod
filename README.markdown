@@ -1,10 +1,9 @@
-Application Engineer Coding Exercise
+XML-less Rest Spring MVC (Rest and views) + Hibernate + Swagger 
 ========================
 
-Exercise that : 
-The web app fetches the HTML of the page and displays the source to the user
-A summary of the document is displayed, listing which tags are present in the HTML and how many of each tag
-Clicking on the name of each tag in the summary will highlight the tags in the source code view
+This application contains a basic set up of a spring mvc rest services, couple with a "regular" controller. 
+Hibernate (JPA) integrated with Spring. 
+JUnit for the JPA. 
 
 Compiling
 ---------
